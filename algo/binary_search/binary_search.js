@@ -1,9 +1,9 @@
 
-const binarySearchRecursive = (arr, start_index, max_index, target) => {
+const binarySearchRecursive = (arr, start, finish, target) => {
 
-  if (max_index >= start_index){
+  if (finish >= start){
      
-    let mid = start_index + (max_index - start_index) / 2
+    let mid = start + (finish - start) / 2
     let middle_element = arr[mid]
 
     if(middle_element === target){
@@ -12,15 +12,15 @@ const binarySearchRecursive = (arr, start_index, max_index, target) => {
 
     }else if(middle_element > target){
 
-      return binarySearch(arr, start_index, mid - 1, target)
+      return binarySearch(arr, start, mid - 1, target)
 
     }else{
       
-      return binarySearch(arr, mid + 1, max_index, target)
+      return binarySearch(arr, mid + 1, finish, target)
 
     }
   }else{
-    return false
+    return -1
   }
   
 }

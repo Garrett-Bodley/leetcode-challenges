@@ -3,37 +3,30 @@
 require 'pry'
 
 def length_of_longest_substring(s)
-    
-  sub = []
-  l = 0
+   
+  sub = ""
+  subs = []
 
   s.each_char do |char|
-
-    if char == s[-1] && !sub.include?(char)
-      sub << char
-    end
-
+    
     if sub.include?(char)
-      l = sub.length if sub.length > l
-      sub = [char]
+      
+      subs.push(sub)
+      if sub[-1] != char
+        sub = sub[-1] << char
+      else
+        sub = char
+      end
     else
+      
       sub << char
     end
-  end
 
-  return l 
+  end
+  
+  subs.push(sub)
+  subs.max_by{|i| i.length}.length
 
 end
 
-# Input: s = "abcabcbb"
-# Output: 3
-#  pwwkew
-
-puts length_of_longest_substring("pwwkew")
-
-
-#          .  .
-# p  w  w  k  e  w
-
-# k = 1
-# l = 2 
+puts length_of_longest_substring("dvdf")

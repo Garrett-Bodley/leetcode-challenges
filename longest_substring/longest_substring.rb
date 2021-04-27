@@ -4,35 +4,36 @@ require 'pry'
 
 def length_of_longest_substring(s)
     
-  i, j, k, l = 0, 1, 0, 0
+  sub = []
+  l = 0
 
-  while j <= s.length - 1
+  s.each_char do |char|
 
-    k += 1
-    if s[i] == s[j]
-
-      l = k unless k <= l
-      k = 0
-
+    if char == s[-1] && !sub.include?(char)
+      sub << char
     end
 
-    i += 1
-    j += 1
-
+    if sub.include?(char)
+      l = sub.length if sub.length > l
+      sub = [char]
+    else
+      sub << char
+    end
   end
 
+  return l 
 
-  return l
 end
 
 # Input: s = "abcabcbb"
 # Output: 3
+#  pwwkew
 
 puts length_of_longest_substring("pwwkew")
 
 
-         .  .
-p  w  w  k  e  w
+#          .  .
+# p  w  w  k  e  w
 
-k = 1
-l = 2 
+# k = 1
+# l = 2 

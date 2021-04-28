@@ -1,31 +1,24 @@
 # Given a string s, find the length of the longest substring without repeating characters.
-
-require 'pry'
+require 'set'
 
 def length_of_longest_substring(s)
    
-  sub = ""
-  subs = []
-
-  s.each_char do |char|
-    
-    if sub.include?(char)
-      
-      subs.push(sub)
-      if sub[-1] != char
-        sub = sub[-1] << char
-      else
-        sub = char
-      end
-    else
-      
-      sub << char
-    end
-
-  end
+  set = Set.new
   
-  subs.push(sub)
-  subs.max_by{|i| i.length}.length
+  l, r, result = 0, 0, 0
+
+  while r < s.length
+
+    while set.include?(s[r])
+      set.delete(s[l])
+      l += 1
+    end
+    set.add(s[r])
+    result = r - l + 1 if r - l + 1 > result
+    r += 1
+  end
+
+  result
 
 end
 

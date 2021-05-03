@@ -2,7 +2,7 @@
 function longestPalindromicSubstringBruteForce(s){
 
   let chars = [...s]
-  if(chars.join('') === chars.reverse().join('')){
+  if(s === chars.reverse().join('')){
     return s
   }
 
@@ -25,5 +25,59 @@ function longestPalindromicSubstringBruteForce(s){
   }else{
     return longest
   }
+
+}
+
+function longestPalindromicSubstring(s){
+  
+  if(s === [...s].reverse()){
+    return s
+  }
+  
+  let longest = s[0]
+  let palindromes = []
+
+  // Look for 2 letter palindromes
+
+  for(let i = 0; i < s.length; i++){
+
+    if(isPalindromic(s.substr(i, 2))){
+      if(isPalindromic(s.substr(i, 3))){
+        let j = 3
+        while(isPalindromic(s.substr(i, j))){
+          i -= 1
+          j += 2
+        }
+        let palindrome = s.substr(i + 1, j - 2)
+        longest = longest.length > palindrome.length ? longest : palindrome
+        i += j
+      }else{
+        let j = 2
+        while(isPalindromic(s.substr(i, j))){
+          i -= 1
+          j += 2
+        }
+        let palindrome = s.substr(i + 1, j - 2)
+        longest = longest.length > palindrome.length ? longest : palindrome
+        i += j
+      }
+    }else if(isPalindromic(s.substr(i, 3))){
+      let j = 3
+      while(isPalindromic(s.substr(i, j))){
+        i -= 1
+        j += 2
+      }
+      let palindrome = s.substr(i + 1, j - 2)
+      longest = longest.length > palindrome.length ? longest : palindrome
+      i += j
+    }
+
+  }
+  return longest
+}
+
+function isPalindromic(string){
+
+  return string === string.split('').reverse().join('')
 
 }

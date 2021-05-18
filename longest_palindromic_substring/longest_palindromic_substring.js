@@ -1,4 +1,4 @@
-let s = "aabaab!bb"
+let s = "aacabdkacaa"
 document.addEventListener('DOMContentLoaded', () => {
 
 })
@@ -33,111 +33,48 @@ function longestPalindromicSubstringBruteForce(s){
 
 }
 
-function longestPalindromicSubstring(s){
-  
-  if(s === [...s].reverse()){
-    return s
-  }
-  
-  let longest = s[0]
-
-  // Look for 2 letter palindromes
-
-  for(let i = 0; i < s.length; i++){
-
-    if(isPalindromic(s.substr(i, 2))){
-      if(isPalindromic(s.substr(i, 3))){
-        let j = i + 2
-        while(s[i] === s[j] && i > 0 && j < s.length){
-          i --
-          j ++
-        }
-        let palindrome = s.substring(i, j + 1)
-        debugger
-        longest = longest.length > palindrome.length ? longest : palindrome
-        i += j
-      }else{
-        let j = i + 1
-        while(s[i] === s[j] && i > 0 && j < s.length){
-          i--
-          j++
-        }
-        let palindrome = s.substr(i + 1, j - 2)
-        debugger
-        longest = longest.length > palindrome.length ? longest : palindrome
-        i += j
-      }
-    }else if(isPalindromic(s.substr(i, 3))){
-      let j = 3
-      while(isPalindromic(s.substr(i, j)) && i > 0 && j < s.length - i){
-        i -= 1
-        j += 2
-      }
-      let palindrome = s.substr(i + 1, j - 2)
-      debugger
-      longest = longest.length > palindrome.length ? longest : palindrome
-      i += j
-    }
-
-  }
-  return longest
-}
-
 function longestPalindromicSubstringDynamic(s){
 
   if(isPalindromic(s)) return s
 
-  let length = s.length
   let table = []
-  let max = 1
-  
-  for(let i = 0; i < length; i ++){
+  let max = 0
+  let start = 0
+  let length = s.length
+
+  for(let i = 0; i < length; i++){
     let row = []
-    for(let j = 0; j < length; j++){
+    for(let j = 0; j< length; j++){
       row.push(0)
     }
     table.push(row)
-  } 
+  }
   debugger
   for(let i = 0; i < length; i++){
     table[i][i] = true
-  }
-  
-  // check for 2 character palindromes
-  debugger
-  
-  let start = 0
-  
-  for(let i = 0; i < length - 1; i ++){
     if(s[i] === s[i + 1]){
       table[i][i + 1] = true
       start = i
-      max = 2
+      max = 1
     }
   }
-  debugger
-  
-  // check for lengths greater than 2
-  // k is length of substring
-  
-  
-  for(let k = 3; k <= length; k++){
-    for (let i = 0; i < (length - (k + 1)); i++){
-      let j = i + k - 1
-      
-      if(table[i + 1][j - 1] === false && s[i] === s[j]){
+
+  for(let k = 2; k < length; k++){
+
+    for(let i = 0; i < length - k; i++){
+      let j = i + k
+      if(s[i] === s[j] && table[i + 1][j - 1] === true){
         table[i][j] = true
-        
-        if(k > max){
+        if(k + 1 > max){
+          max = k + 1
           start = i
-          max = k
         }
       }
     }
   }
-  debugger
-  
+
   return s.substr(start, max)
+
 }
 
 function longestPalindromicSubstringFromMiddle(s){

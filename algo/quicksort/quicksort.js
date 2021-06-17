@@ -2,7 +2,7 @@ const quickSort = (array) => {
 
   if(array.length < 2) return array;
 
-  let pivotIndex = Math.floor(Math.random() * array.length)
+  let pivotIndex = Math.floor(Math.random() * (array.length - 1))
   let [front, back] = [];
 
   array.forEach((el, index) => {

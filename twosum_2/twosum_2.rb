@@ -47,3 +47,16 @@ def binary_search(array, start_idx, end_idx, target)
 end
 
 # Two Pointers solution
+
+def two_sum_two_pointers(array, target)
+
+  i ,j = [0, array.length - 1]
+
+  while array[i] + array[j] != target
+    i += 1 if array[i] + array[j] < target
+    j -=1 if array[i] + array[j] > target
+  end
+
+  return [i + 1, j + 1]
+
+end

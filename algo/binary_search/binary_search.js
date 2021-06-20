@@ -3,7 +3,7 @@ const binarySearchRecursive = (arr, start, finish, target) => {
 
   if (finish >= start){
      
-    let mid = start + (finish - start) / 2
+    let mid = Math.floor(start + (finish - start) / 2)
     let middle_element = arr[mid]
 
     if(middle_element === target){

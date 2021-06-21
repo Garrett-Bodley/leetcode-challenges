@@ -30,3 +30,20 @@ let twoSumBruteForce = (array, target) => {
   }
 }
 
+// Two Pointers Solution
+// ---------------------
+
+// This method takes advantage of the fact that our initial array is sorted in ascending value
+
+let twoSumTwoPointers = (array, target) => {
+  // Initializing our two pointers, one at the beginning of the array and one at the very end
+  let [i, j] = [0 , array.length - 1]
+
+  while(array[i] + array[j] !== target){
+    if(array[i] + array[j] < target) i++;
+    if(array[i] + array[j] > target) j--;
+    if(i >= j) return false;
+  }
+
+  return [++i, ++j]
+}

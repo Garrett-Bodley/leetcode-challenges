@@ -33,3 +33,29 @@ const longestPrefixVerticalScan = (strings) => {
     }
   }
 }
+
+const longestPrefixDivideConcquer = (strings) => {
+  if(!strings || strings.length === 0){ return "" }
+  divideAndConcquer(strings, 0, strings.length - 1)
+}
+
+const divideAndConcquer = (strings, left, right) => {
+  if(left === right){
+    return strings[left]
+  }else{
+    let mid = (left + right)/2
+    let longestLeft = divideAndConcquer(strings, left, mid)
+    let longestRight = divideAndConcquer(strings, mid + 1, right)
+    return commonPrefix(longestLeft, longestRight)
+  }
+}
+
+const commonPrefix = (left, right) => {
+  let min = Math.min(left.length, right.length)
+  for(let i = 0; i < min; i++){
+    if(left[i] !== right[i]){
+      return left.substr(0, i)
+    }
+  }
+  return left.substr(left, min)
+}

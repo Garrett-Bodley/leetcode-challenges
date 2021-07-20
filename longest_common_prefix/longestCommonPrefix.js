@@ -20,3 +20,16 @@ const longestCommonPrefix = (strings) => {
   return prefix
 }
 
+const longestPrefixVerticalScan = (strings) => {
+  if(!strings || strings.length === 0){ return "" }
+  // Iterates through each char of strings[0]
+  for(let i = 0; i < strings[0].length; i++){
+    let char = strings[0][i]
+    // Iterates through each word of strings, skipping the first word
+    for(let j = 1; j < strings.length; j++){
+      if(i === strings[j].length || strings[j].charAt(i) !== char){
+        return strings[0].substring(0, i)
+      }
+    }
+  }
+}

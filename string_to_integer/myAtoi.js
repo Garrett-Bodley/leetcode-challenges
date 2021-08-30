@@ -26,34 +26,38 @@
  */
 
 let myAtoi = (s) => {
-  debugger
-  if(!s || s.length === 0) return 0;
+  // return NaN if string does not exist or is empty
+  if(!s || s.length === 0) return NaN;
   let sign = 1;
   let result = 0;
   let i = 0;
   
+  // Skip over any leading white space.
+  // Return NaN if no characters remain after whitespace.
   while(i < s.length && s[i] === " ") i++;
   if( i === s.length) return 0;
   
+  // Parse sign if present
   if(s[i] === "-"){ sign = -1; i++; }
   else if(s[i] === "+"){ i++; };
   if(i === s.length) return 0;
   
+  // Variables to clamp int range (32 bits)
   const max = (2**31) - 1;
   const min = -(2**31);
   
+  // Parse characters that are digits
   while(i < s.length && s[i].match(/\d/)){
     result *= 10
     result += s.charCodeAt(i) - "0".charCodeAt(0)
     i++
   }
+
+  // Apply sign
   result *= sign;
   
+  // Return result or clamp value to max/min
   if(result > max) return max;
   else if(result < min) return min;
   else return result;
 }
-
-let s = "42"
-
-myAtoi(s)
